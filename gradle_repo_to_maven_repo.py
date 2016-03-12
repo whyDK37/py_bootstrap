@@ -74,3 +74,6 @@ for index in range(len(gradlelibs)):
     trans_gradle_maven(gradle_lib)
     # if index == 10 :
     #     break
+
+print()
+print("请把",maven_repo_root,"目录的文件拷贝到maven主仓库。")
