@@ -9,12 +9,20 @@
             如：org\\apache\\tiles\\tiles-api\\3.0.4\\tiles-api-3.0.4.pom
                 org\\apache\\tiles\\tiles-api\\3.0.4\\tiles-api-3.0.4.pom.sha1(内容为83940300a42975f32339e2190acd7d326c3b642d)
 """
-import os,shutil
+import os,shutil,sys
 
-gradle_repo_root = "C:\\Users\\whydk\\.gradle\\caches\\modules-2\\files-2.1"
-maven_repo_root = "D:\\mrp"
+gradle_repo_root = "C:\\Users\\drug\\.gradle\\caches\\modules-2\\files-2.1"
+maven_repo_root = "D:\OneDrive\.m2\\repository"
+# maven_onedrive_repo = "D:\\tmp"
+# maven_onedrive_repo = "D:\\OneDrive\\.m2\\repository"
+
 
 def trans_gradle_maven(groupId):
+    """
+    把 gradle 仓库jar 等文件迁移到 maven仓库
+    :param groupId:
+    :return:
+    """
     mvngroupId = "";
     forlder_arr = groupId.split(".")
     if (len(forlder_arr) != 1):
@@ -41,29 +49,25 @@ def trans_gradle_maven(groupId):
                 sha1 = sha1s[index]
                 filename = os.listdir(gav + "\\" + sha1)[0];
                 ##复制到maven仓库
-                mkdirifnotexist(
-                    maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version)
-                shutil.copy(gav + "\\" + sha1 + "\\" + filename,
-                            maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename)
+                mkdirifnotexist(maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version)
+                shutil.copy(gav + "\\" + sha1 + "\\" + filename, maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename)
                 #创建 SHA1 文件
-                fileHandle = open ( maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename+".sha1", 'w' )
-                fileHandle.write ( sha1 )
+                fileHandle = open(maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename+".sha1", 'w' )
+                fileHandle.write(sha1)
                 fileHandle.close()
     return
 
 
 def mkdirifnotexist(path):
+    """
+    如果目录不存在，床架目录
+    :param path: 目录
+    :return:
+    """
     if (os.path.exists(path)):
         pass
     else:
         os.makedirs(path)
-
-
-# str ="ab"
-# print(str.split("."))
-# print(len(str.split(".")))
-# print(os.path.dirname(gradle_repo_path))
-# print(os.listdir(gradle_repo_path));
 
 if (os.path.exists(gradle_repo_root)):
     print("gradle 仓库目录为：", gradle_repo_root)
@@ -74,16 +78,14 @@ else:
 if (os.path.exists(maven_repo_root)):
     print("maven仓库临时目录：", maven_repo_root)
 else:
-    os.mkdir(maven_repo_root)
     print("创建maven仓库临时目录：", maven_repo_root)
+    os.mkdir(maven_repo_root)
 
 groupIds = os.listdir(gradle_repo_root)
 for index in range(len(groupIds)):
     groupId = groupIds[index];
-    print("仓库：", groupId)
+    print("gradle 仓库：", groupId)
     trans_gradle_maven(groupId)
     # if index == 10 :
     #     break
 
-print()
-print("请把",maven_repo_root,"目录的文件拷贝到maven主仓库。")
