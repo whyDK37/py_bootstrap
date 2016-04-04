@@ -11,42 +11,43 @@
 """
 import os,shutil
 
-gradle_repo_root = "C:\\Users\\whydk\\.gradle\\caches\\modules-2\\files-2.1"
-maven_repo_root = "D:\\mrp"
+userhome = os.path.expanduser('~')
+gradle_repo_root = userhome+"/.gradle/caches/modules-2/files-2.1"
+maven_repo_root = "D:/OneDrive/.m2/repository"
 
 def trans_gradle_maven(groupId):
     mvngroupId = "";
     forlder_arr = groupId.split(".")
     if (len(forlder_arr) != 1):
         for index in range(len(forlder_arr)):
-            mvngroupId += forlder_arr[index] + "\\";
+            mvngroupId += forlder_arr[index] + "/";
     else:
         mvngroupId = forlder_arr[0]
-    print("maven 仓库目录", maven_repo_root + "\\" + mvngroupId)
-    mkdirifnotexist(maven_repo_root + "\\" + mvngroupId)
+    print("maven 仓库目录", maven_repo_root + "/" + mvngroupId)
+    mkdirifnotexist(maven_repo_root + "/" + mvngroupId)
 
-    artifactIds = os.listdir(gradle_repo_root + "\\" + groupId)
+    artifactIds = os.listdir(gradle_repo_root + "/" + groupId)
     # 复制gradle仓库
     for index in range(len(artifactIds)):
         artifactId = artifactIds[index];
-        versions = os.listdir(gradle_repo_root + "\\" + groupId + "\\" + artifactId)
+        versions = os.listdir(gradle_repo_root + "/" + groupId + "/" + artifactId)
         # 模块
         for index in range(len(versions)):
             version = versions[index];
             #groupId  artifactId version
-            gav = gradle_repo_root + "\\" + groupId + "\\" + artifactId + "\\" + version
+            gav = gradle_repo_root + "/" + groupId + "/" + artifactId + "/" + version
             sha1s = os.listdir(gav)
             # 版本,下分目录存放jar,pom,source
             for index in range(len(sha1s)):
                 sha1 = sha1s[index]
-                filename = os.listdir(gav + "\\" + sha1)[0];
+                filename = os.listdir(gav + "/" + sha1)[0];
                 ##复制到maven仓库
                 mkdirifnotexist(
-                    maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version)
-                shutil.copy(gav + "\\" + sha1 + "\\" + filename,
-                            maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename)
+                    maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version)
+                shutil.copy(gav + "/" + sha1 + "/" + filename,
+                            maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version + "/" + filename)
                 #创建 SHA1 文件
-                fileHandle = open ( maven_repo_root + "\\" + mvngroupId + "\\" + artifactId + "\\" + version + "\\" + filename+".sha1", 'w' )
+                fileHandle = open ( maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version + "/" + filename+".sha1", 'w' )
                 fileHandle.write ( sha1 )
                 fileHandle.close()
     return
@@ -82,8 +83,5 @@ for index in range(len(groupIds)):
     groupId = groupIds[index];
     print("仓库：", groupId)
     trans_gradle_maven(groupId)
-    # if index == 10 :
-    #     break
 
-print()
-print("请把",maven_repo_root,"目录的文件拷贝到maven主仓库。")
+
