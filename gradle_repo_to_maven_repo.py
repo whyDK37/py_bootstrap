@@ -44,7 +44,7 @@ def trans_gradle_maven(groupId):
                 ##复制到maven仓库
                 mkdirifnotexist(
                     maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version)
-                shutil.copy(gav + "/" + sha1 + "/" + filename,
+                shutil.copy2(gav + "/" + sha1 + "/" + filename,
                             maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version + "/" + filename)
                 #创建 SHA1 文件
                 fileHandle = open ( maven_repo_root + "/" + mvngroupId + "/" + artifactId + "/" + version + "/" + filename+".sha1", 'w' )
