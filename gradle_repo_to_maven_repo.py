@@ -13,7 +13,7 @@ import os,shutil
 
 userhome = os.path.expanduser('~')
 gradle_repo_root = userhome+"/.gradle/caches/modules-2/files-2.1"
-maven_repo_root = "D:/OneDrive/.m2/repository"
+maven_repo_root = "D:/OneDrive/m2/repository"
 
 def trans_gradle_maven(groupId):
     mvngroupId = "";
