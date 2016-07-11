@@ -23,7 +23,7 @@ def trans_gradle_maven(groupId):
             mvngroupId += forlder_arr[index] + "/";
     else:
         mvngroupId = forlder_arr[0]
-    print("maven 仓库目录"+ maven_repo_root + "/" + mvngroupId)
+    print(u"maven 仓库目录"+ maven_repo_root + "/" + mvngroupId)
     mkdirifnotexist(maven_repo_root + "/" + mvngroupId)
 
     artifactIds = os.listdir(gradle_repo_root + "/" + groupId)
@@ -67,21 +67,21 @@ def mkdirifnotexist(path):
 # print(os.listdir(gradle_repo_path));
 
 if (os.path.exists(gradle_repo_root)):
-    print("gradle 仓库目录为：" +  gradle_repo_root)
+    print(u"gradle 仓库目录为：" +  gradle_repo_root)
 else:
-    print("gradle 仓库目录不存在：" + gradle_repo_root)
+    print(u"gradle 仓库目录不存在：" + gradle_repo_root)
     exit();
 
 if (os.path.exists(maven_repo_root)):
-    print("maven仓库临时目录：" + maven_repo_root)
+    print(u"maven仓库临时目录：" + maven_repo_root)
 else:
     os.mkdir(maven_repo_root)
-    print("创建maven仓库临时目录：" +  maven_repo_root)
+    print(u"创建maven仓库临时目录：" +  maven_repo_root)
 
 groupIds = os.listdir(gradle_repo_root)
 for index in range(len(groupIds)):
     groupId = groupIds[index];
-    print("仓库："+  groupId)
+    print(u"仓库："+  groupId)
     trans_gradle_maven(groupId)
 
 

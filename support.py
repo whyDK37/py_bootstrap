@@ -2,6 +2,6 @@
 # -*- coding: UTF-8 -*-
 #
 def print_func( par ):
-   print( "Hello : ", par   )
+   print(u"Hello : ", par)
    return
 
