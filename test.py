@@ -6,7 +6,7 @@ import json
 import os,shutil,platform,sys
 from collections import defaultdict
 
-print (U"我是中文")
+print (U"我是中文，但是我是一个好中文，不是你们现象的那样。")
 print (r'^time/plus/\d{1,2}/$');
 maven_repo_root =   "D:\\mrp"
 maven_onedrive_repo = "D:\\tmp1"
@@ -34,3 +34,12 @@ taxonomy['Plantae']['Solanales']['Convolvulaceae']['Ipomoea']['sweet potato']
 
 print(json.dumps(users))
 print(dicts(taxonomy))
+
+
+
+users['harold']['username'] = 'hrldcpr'
+
+#shutil.rmtree('D:\\tmp\\com')
+os.popen('rm -rf D:\\tmp\\com')
+
+

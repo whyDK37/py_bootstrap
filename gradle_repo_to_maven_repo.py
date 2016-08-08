@@ -84,4 +84,6 @@ for index in range(len(groupIds)):
     print(u"仓库："+  groupId)
     trans_gradle_maven(groupId)
 
-
+    #print(u"删除仓库："+  groupId)
+    #shutil.rmtree(gradle_repo_root+'/'+groupId)
+    #os.popen('rm -rf '+gradle_repo_root+'/'+groupId)
