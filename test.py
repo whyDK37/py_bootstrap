@@ -7,7 +7,7 @@ import os,shutil,platform,sys
 from collections import defaultdict
 
 print (U"我是中文，但是我是一个好中文，不是你们现象的那样。")
-print (r'^time/plus/\d{1,2}/$');
+print (r'^time/plus/\d{1,2}/$')
 maven_repo_root =   "D:\\mrp"
 maven_onedrive_repo = "D:\\tmp1"
 
